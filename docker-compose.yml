@@ -1,0 +1,24 @@
+services:
+  db:
+    image: ankane/pgvector:latest
+    container_name: pingy_db
+    ports:
+      - "5433:5432"
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB__USER}
+      - POSTGRES_PASSWORD=${DB__PASSWORD}
+      - POSTGRES_DB=${DB__SCHEMA}
+      - TZ=Europe/Moscow
+    volumes:
+      - pingy_data:/var/lib/postgresql/data
+  redis:
+    image: redis:7-alpine
+    container_name: pingy_redis
+    restart: always
+    ports:
+      - "6380:6379"
+
+volumes:
+  pingy_data:
