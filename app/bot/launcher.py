@@ -4,7 +4,7 @@ from app.database import SessionLocal
 from app.core import config
 from app.core.utils import DataTransfer
 from app.bot.handlers import routers
-from app.core.middlewares import DbSessionMiddleware
+from app.core.middlewares import *
 
 
 def include_routers(dp):
@@ -14,6 +14,8 @@ def include_routers(dp):
 
 def include_middleware(dp):
     dp.update.middleware(DbSessionMiddleware(session_pool=SessionLocal))
+    dp.update.middleware(UserRegistrationMiddleware())
+    dp.update.middleware(TranslateMiddleware())
 
 
 async def setup_app():
