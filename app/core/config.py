@@ -18,9 +18,20 @@ class DBConfig(BaseModel):
         return f"postgresql+asyncpg://{self.user}:{self.password}@{self.host}:{self.port}/{self.schema}"
 
 
+class RedisConfig(BaseModel):
+    host: str
+    port: str
+    schema: str
+
+    @property
+    def url(self):
+        return f"redis://{self.host}:{self.port}/{self.schema}"
+
+
 class Config(BaseSettings):
     private: PrivateConfig
     db: DBConfig
+    redis: RedisConfig
 
     model_config = SettingsConfigDict(
         env_file=".env",

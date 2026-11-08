@@ -9,6 +9,7 @@ from app.bot.handlers.states import Registration
 from app.core.locales import Translator
 from app.core.services.user import create_user
 from app.database.models import User
+from app.bot.handlers.utils import show_main_menu
 
 
 router = Router()
@@ -25,3 +26,5 @@ async def start(message: Message, state: FSMContext,
             reply_markup=langs_buttons()
         )
         await state.set_state(Registration.language_choice)
+        return
+    await show_main_menu(message, state, user, i18n)

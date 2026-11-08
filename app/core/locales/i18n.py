@@ -18,16 +18,19 @@ class Translator:
                 self._cache[lang_code] = json.load(f)
         print(f"🌍 Загружены локализации для языков: {list(self._cache.keys())}")
 
-    def get(self, key: str, **kwargs: Any) -> str:
-        """Достает текст из кэша по точечной нотации (например: 'start.welcome')
+    def _get_lang_data(self, priority_lang: str = None):
+        lang = priority_lang or self._lang
+        return self._cache.get(lang, self._cache.get("en", {}))
 
-        и подставляет аргументы.
+    def get(self, key: str, priority_lang: str = None,
+            **kwargs: Any) -> str | dict[str, str]:
         """
-        lang_data = self._cache.get(self._lang, self._cache.get("en", {}))
-
-        # Ищем ключ по уровням (например, "start.welcome" -> start -> welcome)
+        Достает текст из кэша по точечной нотации и подставляет аргументы.
+        """
+        lang_data = self._get_lang_data(priority_lang)
         keys = key.split(".")
         val = lang_data
+
         for k in keys:
             if isinstance(val, dict):
                 val = val.get(k)
@@ -36,7 +39,7 @@ class Translator:
                 break
 
         if not val:
-            return f"[{key}]"    # Заглушка, если ключ не найден
+            return f"[{key}]"
 
         # Если есть переменные для подстановки, форматируем строку
         if kwargs and isinstance(val, str):

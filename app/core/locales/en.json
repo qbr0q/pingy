@@ -1,5 +1,15 @@
 {
   "start": {
     "welcome": "Hi! \uD83D\uDC4B Glad to see you at Pingly!\nHere you can meet new people, communicate and find interesting people from all over the world.\nFirst, let's choose the interface language."
+  },
+  "message": {
+    "main_menu": "Are you ready to meet someone new?\nFind a random person to talk to, choose your interests, or customize the search for yourself."
+  },
+  "buttons": {
+    "main_menu": {
+      "next": "\uD83C\uDFB2 Find someone",
+      "interests": "❤ Interests",
+      "settings": "⚙ Settings"
+    }
   }
 }
