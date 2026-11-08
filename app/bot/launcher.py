@@ -1,10 +1,11 @@
 from aiogram import Bot, Dispatcher
+from aiogram.fsm.storage.redis import RedisStorage
 
 from app.database import SessionLocal
 from app.core import config
 from app.core.utils import DataTransfer
-from app.bot.handlers import routers
 from app.core.middlewares import *
+from app.bot.handlers import routers
 
 
 def include_routers(dp):
@@ -20,7 +21,8 @@ def include_middleware(dp):
 
 async def setup_app():
     bot = Bot(token=config.private.bot_token)
-    dp = Dispatcher()
+    storage = RedisStorage.from_url(config.redis.url)
+    dp = Dispatcher(storage=storage)
 
     include_routers(dp)
     include_middleware(dp)

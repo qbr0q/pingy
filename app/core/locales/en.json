@@ -3,7 +3,9 @@
     "welcome": "Hi! \uD83D\uDC4B Glad to see you at Pingly!\nHere you can meet new people, communicate and find interesting people from all over the world.\nFirst, let's choose the interface language."
   },
   "message": {
-    "main_menu": "Are you ready to meet someone new?\nFind a random person to talk to, choose your interests, or customize the search for yourself."
+    "main_menu": "Are you ready to meet someone new?\nFind a random person to talk to, choose your interests, or customize the search for yourself.",
+    "search_process": "We are looking for an interlocutor \uD83D\uDD0E\n We are choosing an interlocutor for you. It may take a little time — we'll get to know each other soon!\n\n To cancel the search, click the button below or send the command /stop.",
+    "found": "The interlocutor has been found! \uD83D\uDC4B\n\n You can start communicating — the first message is yours :)\If you want to find another person to talk to, click 'Next' or send /next.To end the dialogue, click 'Finish' or send /stop."
   },
   "buttons": {
     "main_menu": {

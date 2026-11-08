@@ -6,8 +6,10 @@ from app.bot.handlers.states import Registration
 from app.bot.handlers.registration.mapper import BTN_TO_LANG_MAP
 from app.bot.handlers.utils import show_main_menu
 from app.core.locales import Translator
+from app.core.enums.redis import MatchResult
 from app.database.models import User
 from app.services.queue import match_manager
+from app.services.room import room_manager
 
 
 router = Router()
@@ -28,4 +30,12 @@ async def main_menu_process(message: Message, user: User,
     buttons = i18n.get("buttons.main_menu")
 
     if message.text == buttons.get("next"):
-        await match_manager.process_search(user)
+        await message.answer(
+            i18n.get("message.search_process")
+        )
+        result = await match_manager.process_search(user)
+        if result.status == MatchResult.MATCHED:
+            for chat_id in result.user_ids:
+                await message.bot.send_message(
+                    chat_id=chat_id, text=i18n.get("message.found")
+                )
