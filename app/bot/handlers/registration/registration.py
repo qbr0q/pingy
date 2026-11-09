@@ -1,6 +1,7 @@
 from aiogram import Router
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
+from aiogram.fsm.storage.base import StorageKey
 
 from app.bot.handlers.states import Registration
 from app.bot.handlers.registration.mapper import BTN_TO_LANG_MAP
@@ -25,8 +26,8 @@ async def language_process(message: Message, state: FSMContext,
 
 
 @router.message(Registration.main_menu)
-async def main_menu_process(message: Message, user: User,
-                            i18n: Translator):
+async def main_menu_process(message: Message, state: FSMContext,
+                            user: User, i18n: Translator):
     buttons = i18n.get("buttons.main_menu")
 
     if message.text == buttons.get("next"):
@@ -39,3 +40,20 @@ async def main_menu_process(message: Message, user: User,
                 await message.bot.send_message(
                     chat_id=chat_id, text=i18n.get("message.found")
                 )
+                target_key = StorageKey(
+                    bot_id=message.bot.id, chat_id=chat_id, user_id=chat_id
+                )
+                await state.storage.set_state(target_key, Registration.active_chat)
+
+
+@router.message(Registration.active_chat)
+async def active_chat_process(message: Message):
+    receiver_ids = await room_manager.get_receiver_ids(
+        str(message.from_user.id)
+    )
+    for chat_id in receiver_ids:
+        await message.bot.send_message(
+            chat_id=chat_id, text=message.text
+        )
+
+

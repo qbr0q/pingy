@@ -22,8 +22,17 @@ class RoomClient:
     def _generate_room_id():
         return str(uuid.uuid4())
 
-    def get_room_other_members(self, room_members, current_user_id):
-        pass
+    async def _get_user_room_id(self, user_id):
+        return await self.redis.get(f"{StreamType.USER_ROOM}:{user_id}:{StreamType.ROOM}")
+
+    async def _get_other_members(self, room_id, current_user_id):
+        all_members = await self.redis.smembers(f"{StreamType.ROOM}:{room_id}")
+        return all_members - {current_user_id}
+
+    async def get_receiver_ids(self, current_user_id):
+        room_id = await self._get_user_room_id(current_user_id)
+        a = await self._get_other_members(room_id, current_user_id)
+        return a
 
 
 room_manager = RoomClient()
