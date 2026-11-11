@@ -23,7 +23,7 @@ class Translator:
         return self._cache.get(lang, self._cache.get("en", {}))
 
     def get(self, key: str, priority_lang: str = None,
-            **kwargs: Any) -> str | dict[str, str]:
+            only_title=False, **kwargs: Any) -> str | dict[str, str]:
         """
         Достает текст из кэша по точечной нотации и подставляет аргументы.
         """
@@ -44,6 +44,9 @@ class Translator:
         # Если есть переменные для подстановки, форматируем строку
         if kwargs and isinstance(val, str):
             return val.format(**kwargs)
+
+        if only_title and isinstance(val, dict):
+            val = {i: j["title"] for i, j in val.items()}
 
         return val
 

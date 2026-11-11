@@ -6,6 +6,7 @@ from aiogram.fsm.storage.base import StorageKey
 from app.bot.handlers.states import Registration
 from app.bot.handlers.registration.mapper import BTN_TO_LANG_MAP
 from app.bot.handlers.utils import show_main_menu
+from app.bot.keyboards.reply_keyboards import get_keyboard_by_path
 from app.core.locales import Translator
 from app.core.enums.redis import MatchResult
 from app.database.models import User
@@ -28,22 +29,33 @@ async def language_process(message: Message, state: FSMContext,
 @router.message(Registration.main_menu)
 async def main_menu_process(message: Message, state: FSMContext,
                             user: User, i18n: Translator):
-    buttons = i18n.get("buttons.main_menu")
+    buttons = i18n.get("buttons.main_menu", only_title=True)
 
     if message.text == buttons.get("next"):
         await message.answer(
-            i18n.get("message.search_process")
+            i18n.get("message.search_process"),
+            reply_markup=get_keyboard_by_path("buttons.waiting")
         )
+        await state.set_state(Registration.waiting)
         result = await match_manager.process_search(user)
         if result.status == MatchResult.MATCHED:
             for chat_id in result.user_ids:
                 await message.bot.send_message(
-                    chat_id=chat_id, text=i18n.get("message.found")
+                    chat_id=chat_id, text=i18n.get("message.found"),
+                    reply_markup=get_keyboard_by_path("buttons.active_chat")
                 )
                 target_key = StorageKey(
                     bot_id=message.bot.id, chat_id=chat_id, user_id=chat_id
                 )
                 await state.storage.set_state(target_key, Registration.active_chat)
+
+
+@router.message(Registration.waiting)
+async def waiting_process(message: Message, i18n: Translator):
+    buttons = i18n.get("buttons.waiting", only_title=True)
+
+    if message.text == buttons.get("cancel_search"):
+        print()
 
 
 @router.message(Registration.active_chat)

@@ -9,13 +9,16 @@
   },
   "buttons": {
     "main_menu": {
-      "next": "\uD83C\uDFB2 Найти собеседника",
-      "interests": "❤ Интересы",
-      "settings": "⚙ Настройки"
+      "next": {"title": "🎲 Найти собеседника"},
+      "interests": {"title": "❤ Интересы"},
+      "settings": {"title": "⚙ Настройки"}
+    },
+    "waiting": {
+      "cancel_search": {"title": "✖ Отменить поиск"}
     },
     "active_chat": {
-      "next": "⏭ Следующий",
-      "stop": "✖ Завершить"
+      "next": {"title": "⏭ Следующий"},
+      "stop": {"title": "✖ Завершить"}
     }
   }
 }

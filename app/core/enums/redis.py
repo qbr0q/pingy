@@ -7,6 +7,7 @@ class StreamType(StrEnum):
     ROOM = "room"
     USER_ROOM = "user"
     ACTIVE = "active_users"
+    QUEUED_SET = "queued_set"
 
 
 class Themes(StrEnum):

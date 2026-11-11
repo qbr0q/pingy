@@ -9,13 +9,16 @@
   },
   "buttons": {
     "main_menu": {
-      "next": "\uD83C\uDFB2 Find someone",
-      "interests": "❤ Interests",
-      "settings": "⚙ Settings"
+      "next": {"title": "🎲 Find someone"},
+      "interests": {"title": "❤ Interests"},
+      "settings": {"title": "⚙ Settings"}
+    },
+    "waiting": {
+      "cancel_search": {"title": "✖ Cancel the search"}
     },
     "active_chat": {
-      "next": "⏭ Next",
-      "stop": "✖ Stop"
+      "next": {"title": "⏭ Next"},
+      "stop": {"title": "✖ Stop"}
     }
   }
 }

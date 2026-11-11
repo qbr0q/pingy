@@ -19,7 +19,7 @@ class MatchClient:
         user_id = str(user.telegram_id)
 
         queue_key = f"{StreamType.QUEUE}:{user.search_language}:{user_topic}"
-        queued_key = f"{queue_key}:queued_set"
+        queued_key = f"{queue_key}:{StreamType.QUEUED_SET}"
         active_key = StreamType.ACTIVE
 
         status, partner_id = await self._script(
