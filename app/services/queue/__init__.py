@@ -1,4 +1,4 @@
-from .MatchClient import match_manager
+from .QueueClient import queue_manager
 
 
-__all__ = ("match_manager",)
+__all__ = ("queue_manager",)

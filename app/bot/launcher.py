@@ -1,11 +1,12 @@
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.redis import RedisStorage
 
-from app.database import SessionLocal
+from app.bot.handlers import routers
 from app.core import config
 from app.core.utils import DataTransfer
 from app.core.middlewares import *
-from app.bot.handlers import routers
+from app.database import SessionLocal
+from app.proxy import ProxyClient
 
 
 def include_routers(dp):
@@ -20,7 +21,8 @@ def include_middleware(dp):
 
 
 async def setup_app():
-    bot = Bot(token=config.private.bot_token)
+    proxy_client = ProxyClient()
+    bot = Bot(token=config.private.bot_token, session=proxy_client.session)
     storage = RedisStorage.from_url(config.redis.url)
     dp = Dispatcher(storage=storage)
 

@@ -51,5 +51,5 @@ class Translator:
         return val
 
 
-LOCALES_PATH = Path("app/core/locales")
+LOCALES_PATH = Path("app/core/locales") # fixme
 i18n = Translator(LOCALES_PATH)

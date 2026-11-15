@@ -28,10 +28,22 @@ class RedisConfig(BaseModel):
         return f"redis://{self.host}:{self.port}/{self.schema}"
 
 
+class ProxyConfig(BaseModel):
+    ip: str
+    port: int
+    login: str
+    password: str
+
+    @property
+    def url(self):
+        return f"socks5://{self.login}:{self.password}@{self.ip}:{self.port}"
+
+
 class Config(BaseSettings):
     private: PrivateConfig
     db: DBConfig
     redis: RedisConfig
+    proxy: ProxyConfig
 
     model_config = SettingsConfigDict(
         env_file=".env",
