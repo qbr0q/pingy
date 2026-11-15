@@ -17,8 +17,7 @@ class QueueClient:
 
     @staticmethod
     def get_wait_queue_keys(user):
-        user_topic = "ALL"
-        queue_key = f"{StreamType.QUEUE}:{user.search_language}:{user_topic}"
+        queue_key = f"{StreamType.QUEUE}:{user.search_language}:{user.topic}"
         queue_set_key = f"{queue_key}:{StreamType.QUEUED_SET}"
         return queue_key, queue_set_key
 

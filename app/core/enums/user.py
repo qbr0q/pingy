@@ -11,3 +11,12 @@ class UserStatus(StrEnum):
 class UserLanguage(StrEnum):
     RU = "Русский 🇷🇺"
     EN = "English 🇬🇧"
+
+
+class UserGender(StrEnum):
+    MALE = "M"
+    FEMALE = "F"
+
+
+class UserTopic(StrEnum):
+    ALL = "all"

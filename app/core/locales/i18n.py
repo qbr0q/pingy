@@ -2,6 +2,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from app.core import settings
+
 
 class Translator:
     def __init__(self, locales_dir: Path, lang: str = "en"):
@@ -51,5 +53,5 @@ class Translator:
         return val
 
 
-LOCALES_PATH = Path("app/core/locales") # fixme
+LOCALES_PATH = Path(settings.paths.locales)
 i18n = Translator(LOCALES_PATH)

@@ -1,5 +1,6 @@
 from enum import StrEnum
 from .reference import LanguageDB
+from .user import UserTopic
 
 
 class StreamType(StrEnum):
@@ -10,13 +11,9 @@ class StreamType(StrEnum):
     QUEUED_SET = "queued_set"
 
 
-class Themes(StrEnum):
-    ALL = "all"
-
-
 class Queue(StrEnum):
-    RussianAll = f"{StreamType.QUEUE}:{LanguageDB.RU}:{Themes.ALL}"
-    EnglishAll = f"{StreamType.QUEUE}:{LanguageDB.EN}:{Themes.ALL}"
+    RussianAll = f"{StreamType.QUEUE}:{LanguageDB.RU}:{UserTopic.ALL}"
+    EnglishAll = f"{StreamType.QUEUE}:{LanguageDB.EN}:{UserTopic.ALL}"
 
 
 class MatchResult(StrEnum):

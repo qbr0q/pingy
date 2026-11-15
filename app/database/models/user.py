@@ -4,7 +4,7 @@ from typing import Optional, List
 from sqlmodel import SQLModel, Field, Relationship
 from sqlalchemy import ForeignKey, Column, Integer, DateTime, func, UniqueConstraint, Index, BigInteger
 
-from app.core.enums.user import UserStatus
+from app.core.enums.user import UserStatus, UserTopic
 
 
 class User(SQLModel, table=True):
@@ -28,6 +28,8 @@ class User(SQLModel, table=True):
     )
     telegram_id: int = Field(sa_column=Column(BigInteger, unique=True))
     status: str = Field(default=UserStatus.IDLE)
+    topic: str = Field(default=UserTopic.ALL, nullable=True)
     gender: str = Field(nullable=True)
+    search_gender: str = Field(nullable=True)
     interface_language: str
     search_language: str
