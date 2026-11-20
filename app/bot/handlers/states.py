@@ -6,3 +6,6 @@ class Registration(StatesGroup):
     main_menu = State()
     waiting = State()
     active_chat = State()
+    interests = State()
+    choose_interests = State()
+

@@ -19,7 +19,7 @@ def get_inline_keyboard(raw_buttons_data, row_width=2):
     builder = InlineKeyboardBuilder()
 
     buttons_data = [InlineKeyboardButton(text=button_data.title,
-                                         callback_data=button_data.callback,
+                                         callback_data=button_data.data,
                                          url=button_data.url,
                                          style=button_data.style)
                     for button_data in raw_buttons_data]

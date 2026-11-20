@@ -13,6 +13,13 @@ def get_keyboard_by_path(path):
     return get_reply_keyboard(buttons_data)
 
 
+def get_keyboard_by_data(btn_data):
+    buttons_data = [
+        ReplyButtonDTO(**button) for button in btn_data
+    ]
+    return get_reply_keyboard(buttons_data)
+
+
 def langs_buttons():
     buttons_data = [
         ReplyButtonDTO(title=UserLanguage.RU),

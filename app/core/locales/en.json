@@ -1,27 +1,59 @@
 {
   "start": {
-    "welcome": "Hi! \uD83D\uDC4B Glad to see you at Pingly!\nHere you can meet new people, communicate and find interesting people from all over the world.\nFirst, let's choose the interface language."
+    "welcome": "Hi! 👋 Welcome to Pingly!\nHere you can meet new people, chat, and find interesting people from all over the world.\nFirst, let's choose your interface language."
   },
   "message": {
-    "main_menu": "Are you ready to meet someone new?\nFind a random person to talk to, choose your interests, or customize the search for yourself.",
-    "search_process": "We are looking for an interlocutor \uD83D\uDD0E\n We are choosing an interlocutor for you. It may take a little time — we'll get to know each other soon!\n\n To cancel the search, click the button below or send the command /stop.",
-    "found": "The interlocutor has been found! \uD83D\uDC4B\n\nIf you want to find another person to talk to, click 'Next' or send /next.To end the dialogue, click 'Finish' or send /stop.",
-    "cancel_search": "The search has been canceled. ✖\n\nWhen you're ready, we'll find someone to talk to! \uD83D\uDC4B",
-    "stop": "The dialogue is completed \uD83D\uDC4B\nYou have completed communication. Thank you for spending this time with Pingly!",
-    "partner_stop": "The interlocutor has completed the dialogue \uD83D\uDC4B\nOur communication has come to an end. Do you want to find someone else?"
+    "main_menu": "Ready to meet someone new?\nFind a random chat partner, choose your interests, or customize your search.\n\n/info — list of available commands",
+    "search_process": "Finding a chat partner 🔎\nWe're looking for someone for you. It may take a little while — you'll meet someone soon!\n\nTo cancel the search, tap the button below or send the /stop command.",
+    "found": "You've found a chat partner! 👋\n\nIf you'd like to meet someone else, tap \"Next\" or send /next.\nTo end the conversation, tap \"End\" or send /stop.",
+    "cancel_search": "Search cancelled ✖\n\nWhenever you're ready, we'll find someone for you! 👋",
+    "stop": "Chat ended 👋\n\nYou've ended the conversation. Thanks for spending this time with Pingly!",
+    "partner_stop": "Your chat partner ended the conversation 👋\n\nYour conversation has come to an end. Would you like to find someone else?",
+    "interests": "Customize your search ❤\nChoose conversation topics and your preferred chat partner's gender.\n\nCurrent settings:\nTopic: {search_topic}\nChat partner's gender: {search_gender}",
+    "choose_interests": "Choose the topics you're interested in."
   },
   "buttons": {
     "main_menu": {
-      "next": {"title": "🎲 Find someone"},
+      "next": {"title": "🎲 Find a chat partner"},
       "interests": {"title": "❤ Interests"},
       "settings": {"title": "⚙ Settings"}
     },
     "waiting": {
-      "cancel_search": {"title": "✖ Cancel the search"}
+      "cancel_search": {"title": "✖ Cancel search"}
     },
     "active_chat": {
       "next": {"title": "⏭ Next"},
-      "stop": {"title": "✖ Stop"}
+      "stop": {"title": "✖️ End chat"}
+    },
+    "interests": {
+      "topics": {"title": "💬 Conversation topics"},
+      "gender": {"title": "👤 Chat partner's gender"},
+      "back": {"title": "↩ Back"}
+    },
+    "topics": {
+      "all": {"title": "🌍 All topics"},
+      "it": {"title": "💻 IT"},
+      "crypto": {"title": "₿ Cryptocurrency"},
+      "back": {"title": "↩ Back"}
+    },
+    "gender": {
+      "M": {"title": "👨 Men"},
+      "F": {"title": "👩 Women"},
+      "any": {"title": "🌍 No preference"},
+      "back": {"title": "↩ Back"}
+    }
+  },
+  "system": {
+    "topics": {
+      "all": "🌍 All topics",
+      "it": "💻 IT",
+      "crypto": "₿ Cryptocurrency",
+      "back": "↩ Back"
+    },
+    "gender": {
+      "M": "Men",
+      "F": "Women",
+      "any": "Everyone"
     }
   }
 }

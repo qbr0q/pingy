@@ -5,12 +5,13 @@ from aiogram.fsm.context import FSMContext
 from app.bot.handlers.states import Registration
 from app.bot.handlers.registration.mapper import BTN_TO_LANG_MAP
 from app.bot.handlers.utils import show_main_menu
-from app.bot.keyboards.reply_keyboards import get_keyboard_by_path
+from app.bot.keyboards.reply_keyboards import get_keyboard_by_path, get_keyboard_by_data
 from app.core.locales import Translator
 from app.database.models import User
 from app.services.queue import queue_manager
 from app.services.room import room_manager
-from .utils import process_search, get_action_config, leave_chat
+from .utils import process_search, get_action_config, \
+    leave_chat, show_interests_menu
 
 
 router = Router()
@@ -29,9 +30,12 @@ async def language_process(message: Message, state: FSMContext,
 async def main_menu_process(message: Message, state: FSMContext,
                             user: User, i18n: Translator):
     buttons = i18n.get("buttons.main_menu", only_title=True)
+    msg_text = message.text
 
-    if message.text == buttons.get("next"):
+    if msg_text == buttons.get("next"):
         await process_search(message, state, user, i18n)
+    elif msg_text == buttons.get("interests"):
+        await show_interests_menu(message, state, user, i18n)
 
 
 @router.message(Registration.waiting)
@@ -85,3 +89,44 @@ async def active_chat_process(message: Message, state: FSMContext,
             chat_id=chat_id, text=receiver_message,
             reply_markup=action_config.partner_markup if action_config else None
         )
+
+
+@router.message(Registration.interests)
+async def interests_process(message: Message, state: FSMContext,
+                            user: User, i18n: Translator):
+    buttons = i18n.get("buttons.interests", only_title=True)
+    msg_text = message.text
+
+    if msg_text == buttons.get("back"):
+        await show_main_menu(message, state, user, i18n)
+
+    elif msg_text == buttons.get("topics"):
+        user_topic = user.topic
+        topics = i18n.get("buttons.topics")
+        btn_data = {k: v for k, v, in topics.items() if k != user_topic}
+        await message.answer(
+            i18n.get("message.choose_interests"),
+            reply_markup=get_keyboard_by_data(
+                btn_data.values()
+            )
+        )
+        await state.set_state(Registration.choose_interests)
+
+    elif msg_text == buttons.get("gender"):
+        pass
+
+
+@router.message(Registration.choose_interests)
+async def choose_interests_process(message: Message, state: FSMContext,
+                                   user: User, i18n: Translator):
+    sys_topics = i18n.get("system.topics")
+    msg_text = message.text
+
+    if msg_text == sys_topics.get("back"):
+        await show_interests_menu(message, state, user, i18n)
+    else:
+        sys_topics_rev = {v: k for k, v in sys_topics.items()}
+        new_topic = sys_topics_rev.get(message.text)
+        if new_topic:
+            user.topic = new_topic
+            await show_interests_menu(message, state, user, i18n)
